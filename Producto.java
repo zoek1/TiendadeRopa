@@ -1,0 +1,82 @@
+
+public class Producto{
+    protected String Marca;
+    protected String Talla;
+    protected String Modelo;
+    protected String Color;
+    protected String TipoTela;
+    protected float Precio;
+    protected int Descuento;
+    protected Producto Siguiente;
+    
+    public Producto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
+	this.Marca = Marca;
+	this.Talla = Talla;
+	this.Modelo = Modelo;
+	this.Color = Color;
+	this.TipoTela = TipoTela;
+	this.Precio = Precio;
+	this.Descuento = Descuento; 
+    }
+
+    public String get_Marca(){
+	return Marca;
+    }
+
+    public String get_Talla(){
+	return Talla;
+    }
+
+    public String get_Modelo(){
+	return Modelo;
+    }
+
+    public String get_Color(){
+	return Color;
+    }
+
+    public String get_TipoTela(){
+	return TipoTela;
+    }
+
+    public float get_Precio(){
+	return Precio;
+    }
+
+    public int get_Descuento(){
+	return Descuento;
+    }
+
+    protected void set_Marca(String Marca){
+	this.Marca =  Marca;
+    }
+
+    protected void set_Talla(String Talla){
+	this.Talla = Talla;
+    }
+
+    protected void set_Modelo(String Modelo){
+	this.Modelo = Modelo;
+    }
+
+    protected void set_Color(String Color){
+	this.Color = Color;
+    }
+
+    protected void set_TipoTela(String TipoTela){
+	this.TipoTela = TipoTela;
+    }
+
+    protected void set_Precio(float Precio){
+	this.Precio = Precio;
+    }
+
+    protected void set_Descuento(int Descuento){
+	this.Descuento = Descuento;
+    }
+
+  
+    
+    
+    
+}

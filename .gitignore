@@ -1,0 +1,12 @@
+# Ignorar los bytecode producidos por java
+
+*.class
+
+# Ignorar Archivos de Backup generados por algunos editores
+
+*#
+*~
+
+# Ignorar los .html producidos por markdown
+
+*.html

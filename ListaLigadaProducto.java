@@ -21,6 +21,21 @@ public class ListaLigadaProducto{
 	}
     }
 
+    public void InsertarProducto(Producto copia){
+	Producto temp = new Producto(copia);
+	if(cabecera == null){
+	    cabecera = temp;
+	    actual = cabecera;
+	}
+	else{
+	  if(Buscar(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento) == null){  
+	    temp.Siguiente = cabecera;
+	    cabecera = temp;
+	  }
+	}
+    }
+
+    
     public Producto Buscar(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
       actual = cabecera;
       while(actual != null){

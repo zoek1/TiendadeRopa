@@ -3,10 +3,6 @@ import java.io.*;
 class Contrasenia {
   private Archivos Archivokey;
 
-  public Contrasenia(){
-    Archivokey = new Archivos("keyshash");
-  }
-
   public Contrasenia(String CambioArchivo){
     Archivokey = new Archivos(CambioArchivo);
   }

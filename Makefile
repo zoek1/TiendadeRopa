@@ -3,7 +3,9 @@ cc =javac -Xlint
 ccj =jar cmf
 
 All: $(ALL)
-	$(ccj) Manifiesto.mf TiendadeRopa.jar $(ALL) Emblemas
+	$(ccj) Manifiesto.mf TiendadeRopa.jar $(ALL) $(Productos) Emblemas
+	chmod +x ./clasesanidadas.sh
+	./clasesanidadas.sh "TiendadeRopa.jar"
 	echo "Para ejecutar programa escriba java -jar TiendadeRopa.jar";
 
 TiendaRopa.class: TiendaRopa.java

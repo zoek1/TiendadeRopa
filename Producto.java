@@ -20,15 +20,14 @@ public class Producto{
     }
 
     public Producto(Producto copia){
-	this.Marca = copia.get_Marca;
-	this.Talla = copia.get_Talla;
-	this.Modelo = copia.get_Modelo;
-	this.Color = copia.get_Color;
-	this.TipoTela = copia.get_TipoTela;
-	this.Precio = copia.get_Precio;
-	this.Descuento = copia.get_Descuento; 
+	this.Marca = copia.get_Marca();
+	this.Talla = copia.get_Talla();
+	this.Modelo = copia.get_Modelo();
+	this.Color = copia.get_Color();
+	this.TipoTela = copia.get_TipoTela();
+	this.Precio = copia.get_Precio();
+	this.Descuento = copia.get_Descuento(); 
     }
-
     
     public String get_Marca(){
 	return Marca;
@@ -85,9 +84,4 @@ public class Producto{
     protected void set_Descuento(int Descuento){
 	this.Descuento = Descuento;
     }
-
-  
-    
-    
-    
 }

@@ -1,0 +1,7 @@
+Manifest-Version: 0.1-testing
+Main-Class: TiendaRopa
+Specification-Title: Proyecto Tienda de ropa
+Specification-Version: 0.1-testing
+Specification-Vendor: https://github.com/zoek1/TiendadeRopa
+Implementation-Vendor: Monica Benitez (pat@pat.net) Jesus Manuel Hernandez () Miguel Angel Gordian
+

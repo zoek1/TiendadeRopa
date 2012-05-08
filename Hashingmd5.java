@@ -6,10 +6,22 @@ import javax.swing.*;
 class Hashingmd5{
   private static final char[] HEXADECIMAL = { '0', '1', '2', '3',
 					      '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-
-  public Hashingmd5(){ }
   
-  public  String ObtenerHash(String stringToHash){
+  private String Hash;
+  
+  public Hashingmd5(String Hash){
+    this.Hash = ObtenerHash(Hash);
+  }
+
+  protected void SetHashing(String Hash){
+    this.Hash  = ObtenerHash(Hash);
+  }
+
+  protected String getHashing(){
+    return this.Hash;
+  }
+  
+  public  static String ObtenerHash(String stringToHash){
     try {
       MessageDigest md5 = MessageDigest.getInstance("MD5");
       byte[] bytes = md5.digest(stringToHash.getBytes());

@@ -1,12 +1,27 @@
 # Ignorar los bytecode producidos por java
 
 *.class
+*.jar
 
 # Ignorar Archivos de Backup generados por algunos editores
 
 *#
 *~
 
+# Ignorar archivos ocultos
+
+.*
+!.gitignore
+ 
 # Ignorar los .html producidos por markdown
 
 *.html
+
+# Ignorar tags
+
+*TAGS*
+*tags*
+
+# Ignorar archivo de pruebas
+
+sandbox.java

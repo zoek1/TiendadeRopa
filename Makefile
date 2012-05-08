@@ -1,4 +1,4 @@
-ALL =Archivos.class ListaLigadaProducto.class Producto.class Reloj.class Hashingmd5.class TiendaRopa.class Contrasenia.class 
+ALL =Archivos.class ListaLigadaProducto.class Producto.class Reloj.class Hashingmd5.class TiendaRopa.class Contrasenia.class VerifContraseniaGui.class
 cc =javac -Xlint
 ccj =jar cmf
 
@@ -29,6 +29,9 @@ Hashingmd5.class: Hashingmd5.java
 Contrasenia.class: Contrasenia.java
 	$(cc) Contrasenia.java
 
+
+VerifContraseniaGui.class: VerifContraseniaGui.java
+	$(cc) VerifContraseniaGui.java
 .PHONY: clean
 clean:
 	-rm $(ALL)

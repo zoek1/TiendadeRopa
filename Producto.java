@@ -1,6 +1,7 @@
 
 public class Producto{
-    protected String Marca;
+  protected String id;
+   protected String Marca;
     protected String Talla;
     protected String Modelo;
     protected String Color;
@@ -9,14 +10,15 @@ public class Producto{
     protected int Descuento;
     protected Producto Siguiente;
     
-    public Producto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
+  public Producto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento,String id){
 	this.Marca = Marca;
 	this.Talla = Talla;
 	this.Modelo = Modelo;
 	this.Color = Color;
 	this.TipoTela = TipoTela;
 	this.Precio = Precio;
-	this.Descuento = Descuento; 
+	this.Descuento = Descuento;
+	this.id = id;
     }
 
     public Producto(Producto copia){
@@ -26,7 +28,8 @@ public class Producto{
 	this.Color = copia.get_Color();
 	this.TipoTela = copia.get_TipoTela();
 	this.Precio = copia.get_Precio();
-	this.Descuento = copia.get_Descuento(); 
+	this.Descuento = copia.get_Descuento();
+	this.id = copia.getid();
     }
     
     public String get_Marca(){
@@ -56,7 +59,15 @@ public class Producto{
     public int get_Descuento(){
 	return Descuento;
     }
+    public String getid(){
+	return id;
+    }
 
+
+    public void setid(String id){
+      this.id = id;
+    }
+  
     protected void set_Marca(String Marca){
 	this.Marca =  Marca;
     }

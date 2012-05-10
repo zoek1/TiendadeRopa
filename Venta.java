@@ -9,20 +9,20 @@ public abstract class Venta{
 	tiempo = new Reloj();
 	Productos = new ListaLigadaProducto();
 	Hora = " ";
-	Direccion_Tienda = " ";
+	Direccion_Tienda = "4 poniente #2334 ";
     }
-    
-    public String get_Hora(){
-	Hora = tiempo.getTiempo();
-	return Hora;	
-    }
+  
+  protected void EliminarProducto(Producto pro){
+    Productos.EliminarProducto(pro.get_Marca(),pro.get_Talla(),pro.get_Modelo(),pro.get_Color(),pro.get_TipoTela(),pro.get_Precio(),pro.get_Descuento(),pro.getid());
+  }
+  
+  public  String get_Hora(String formato){
+    return tiempo.getTiempo(formato);
+  }
+  
     
     public String get_Direccion_Tienda(){
 	return Direccion_Tienda;
-    }
-
-    public ListaLigadaProducto Detalle_Producto(){
-	return Productos;
     }
        
     protected void set_Direccion_Tienda(String DT){
@@ -32,7 +32,8 @@ public abstract class Venta{
     public void Agregar_Producto(Producto p){
 	Productos.InsertarProducto(p);
     }
-    public abstract void Suma_Total();
+  
+    public abstract float Suma_Total();
  
 	
 }

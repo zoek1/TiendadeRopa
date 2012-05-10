@@ -9,7 +9,7 @@ class VerifContraseniaGui extends JFrame implements ActionListener{
   private static String fallo = "Contraseña Incorrecta";
   private static String Ok = "Ok";
   private static String Cancelar = "Cancelar";
-    
+   
   private JLabel label;
   private JPasswordField Contrasenia;
   private boolean flag;
@@ -57,13 +57,13 @@ class VerifContraseniaGui extends JFrame implements ActionListener{
 	public void windowClosing(WindowEvent e){
 	  setVisible(false);
 	  dispose();
-	  System.exit(0); } })); 
+      } })); 
 
     // Mostrar Pantalla.
     // setSize(350,100);
     pack();
-    setVisible(true);
-	
+      setVisible(true);
+
   }
 
   protected JComponent createButtonPanel(){

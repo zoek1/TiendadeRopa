@@ -1,3 +1,4 @@
+import javax.swing.*;
 public class Recibo extends Venta{
     protected float Total;
     protected float Subtotal;
@@ -40,8 +41,8 @@ public class Recibo extends Venta{
 		
     }
     
-    public void Suma_Total(){
-	float suma = 0;
+    public float Suma_Total(){
+	float suma=0;
 	temp = Productos.get_cabecera();
 	while(temp != null){
 	    suma = suma + temp.get_Precio();
@@ -49,6 +50,7 @@ public class Recibo extends Venta{
 	}
 	this.Subtotal = suma;
 	this.Total = this.Subtotal + this.Impuestos;
+return Total;
     }
 
 

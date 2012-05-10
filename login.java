@@ -68,10 +68,11 @@ class login extends JFrame{
 		    setVisible(false);
 		    dispose();
 		    JOptionPane.showMessageDialog(null,"Contraseña Correcta");
+
 		    new TiendaRopa();
 		}else{
 		    Contrasenia.setText("");
-		    JOptionPane.showMessageDialog(null,"Error: Contraseña Incorrecta");
+		    JOptionPane.showMessageDialog(null,"Error: Contraseña Incorrecta"); 
 
 		    Contrasenia.requestFocusInWindow();
 		    

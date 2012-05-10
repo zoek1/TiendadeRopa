@@ -13,14 +13,14 @@ public class ListaLigadaProducto{
         return cabecera;
     }
     
-    public void InsertarProducto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
-	Producto temp = new Producto(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento);
+  public void InsertarProducto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento,String id){
+    Producto temp = new Producto(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento,id);
 	if(cabecera == null){
 	    cabecera = temp;
 	    actual = cabecera;
 	}
 	else{
-	  if(Buscar(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento) == null){  
+	  if(Buscar(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento,id) == null){  
 	    temp.Siguiente = cabecera;
 	    cabecera = temp;
 	  }
@@ -39,10 +39,10 @@ public class ListaLigadaProducto{
 	}
     }
 
-    public Producto Buscar(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
+  public Producto Buscar(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento,String id){
       actual = cabecera;
       while(actual != null){
-	if(actual.Marca == Marca  & actual.Talla == Talla & actual.Modelo == Modelo & actual.Color == Color & actual.TipoTela == TipoTela & actual.Precio == Precio & actual.Descuento == Descuento)
+	if(actual.Marca == Marca  & actual.Talla == Talla & actual.Modelo == Modelo & actual.Color == Color & actual.TipoTela == TipoTela & actual.Precio == Precio & actual.Descuento == Descuento & actual.id == id)
 	  break;
 	actual = actual.Siguiente;
       }
@@ -50,22 +50,45 @@ public class ListaLigadaProducto{
     }
 
 
-      public Producto BuscarAnterior(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
+      public Producto Buscar(Producto p){
+      actual = cabecera;
+      while(actual != null){
+	if(actual == p)
+	  break;
+	actual = actual.Siguiente;
+      }
+      return actual;
+    }
+
+
+
+  protected Producto Buscar(String p){
+      actual = cabecera;
+      while(actual != null){
+	System.out.println("actual pid:" + actual.getid());
+	  if(actual.getid().equals(p))
+	  break;
+	actual = actual.Siguiente;
+      }
+      return actual;
+    }
+
+  public Producto BuscarAnterior(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento,String id){
 	Producto actual;
       actual = cabecera;
       while(actual != null){
-	if(actual.Siguiente.Marca == Marca  & actual.Siguiente.Talla == Talla & actual.Siguiente.Modelo == Modelo & actual.Siguiente.Color == Color & actual.Siguiente.TipoTela == TipoTela & actual.Siguiente.Precio == Precio & actual.Siguiente.Descuento == Descuento)
+	if(actual.Siguiente.Marca == Marca  & actual.Siguiente.Talla == Talla & actual.Siguiente.Modelo == Modelo & actual.Siguiente.Color == Color & actual.Siguiente.TipoTela == TipoTela & actual.Siguiente.Precio == Precio & actual.Siguiente.Descuento == Descuento & actual.Siguiente.id == id)
 	  break;
 	actual = actual.Siguiente;
       }
       return actual;
     }
   
-  public void EliminarProducto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
+  public void EliminarProducto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento,String id){
     Producto temp2, temp3;
-    temp2 = Buscar(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento);
+    temp2 = Buscar(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento,id);
     if(temp2 != null){
-      temp3 = BuscarAnterior(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento);
+      temp3 = BuscarAnterior(Marca, Talla, Modelo, Color, TipoTela, Precio, Descuento,id);
       temp3.Siguiente = temp2.Siguiente;
     }
       
@@ -88,7 +111,7 @@ public class ListaLigadaProducto{
 		producto = producto + tmp.get_Precio() + ",";
 		producto = producto + tmp.get_Precio() + ",";
 		producto = producto + tmp.get_Descuento() + ",";
-		
+		producto = producto + tmp.getid();
 		    if(flag==false){
 		    FileProduto.SobreEscribir(producto);
 		    flag = true;
@@ -105,7 +128,7 @@ public class ListaLigadaProducto{
 
     }
 
-    protected void LeerArchivoProduto(){
+    protected void LeerArchivoProducto(){
 	File producto = new File("Productos");
 	Archivos FileProducto = new Archivos("Productos"); 
 	String LineaProducto;
@@ -114,7 +137,7 @@ public class ListaLigadaProducto{
 	    try{
 		while((LineaProducto = FileProducto.LeerLinea()) != null) {
 		    ArrayProducto = LineaProducto.split(",");
-		    InsertarProducto(new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6])));
+		    InsertarProducto(new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]),ArrayProducto[7]));
 	    }
 	    FileProducto.Cerrar();
 	    }catch(IOException e){

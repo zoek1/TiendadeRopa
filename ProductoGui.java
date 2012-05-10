@@ -4,9 +4,9 @@ import java.awt.event.*;
 import java.io.*;
 
 public class ProductoGui extends JFrame implements ActionListener{
-    private JTextField campoTexto1, campoTexto2, campoTexto3, campoTexto4, campoTexto5, campoTexto6, campoTexto7;
+  private JTextField campoTexto1, campoTexto2, campoTexto3, campoTexto4, campoTexto5, campoTexto6, campoTexto7,campoTexto8;
     private JButton Boton1, Boton2;
-    private JLabel campo1, campo2, campo3, campo4, campo5, campo6, campo7;
+  private JLabel campo1, campo2, campo3, campo4, campo5, campo6, campo7,campo8;
     Producto Objeto;
     
     ListaLigadaProducto ListaProducto;
@@ -19,10 +19,92 @@ public class ProductoGui extends JFrame implements ActionListener{
   protected void setListaProducto(ListaLigadaProducto p){
     ListaProducto = p;
   }
-    protected void NuevoProducto()
+
+
+  protected Producto BuscarporIdentificador(String id){
+    return ListaProducto.Buscar(id);
+  }
+
+
+  protected void BusquedadeProductos()
     {
 
-	setLayout(new GridLayout(8,2));
+   JLabel campoTexto1, campoTexto2, campoTexto3, campoTexto4, campoTexto5, campoTexto6, campoTexto7,campoTexto8;
+     JButton Boton1, Boton2;
+   JLabel campo1, campo2, campo3, campo4, campo5, campo6, campo7,campo8;
+   String tmpl = JOptionPane.showInputDialog(null,"introduce el identificadordel producto");
+   if(tmpl.length()>4){
+   Producto p = BuscarporIdentificador(tmpl);
+     
+   if (p==null){
+     JOptionPane.showMessageDialog(null,"identidicador invalido");
+     return; }
+	setLayout(new GridLayout(9,2));
+	campo1 = new JLabel ("Marca:");
+	add(campo1);
+	
+	campoTexto1 = new JLabel(p.get_Marca());
+	add(campoTexto1);
+
+	campo2 = new JLabel ("Talla:");
+	add(campo2);
+	
+	campoTexto2 = new JLabel(p.get_Talla());
+	add(campoTexto2);
+
+	campo3 = new JLabel ("Modelo:");
+	add(campo3);
+	
+	campoTexto3 = new JLabel(p.get_Modelo());
+	add(campoTexto3);
+
+	campo4 = new JLabel ("Color:");
+	add(campo4);
+	
+	campoTexto4 = new JLabel(p.get_Color());
+	add(campoTexto4);
+
+	campo5 = new JLabel ("Tipo de Tela:");
+	add(campo5);
+	
+	campoTexto5 = new JLabel(p.get_TipoTela());
+	add(campoTexto5);
+	
+	campo6 = new JLabel("Precio:");
+	add(campo6);
+
+	String flot = Float.toString(p.get_Precio()); 
+	campoTexto6 = new JLabel(flot);
+	add(campoTexto6);
+
+	campo7 = new JLabel ("Descuento:");
+	add(campo7);
+
+	String tmp = Integer.toString(p.get_Descuento());
+	campoTexto7 = new JLabel(tmp);
+	add(campoTexto7);
+
+
+	campo8 = new JLabel ("Introduce Identificador:");
+	add(campo8);
+	
+	campoTexto8 = new JLabel(p.getid());
+	add(campoTexto8);
+
+	setSize(400,300);
+	setVisible(true);
+   }else{
+     JOptionPane.showMessageDialog(null,"LA longitud minima del identificador\n es de 5 caracteres");
+   }
+
+    }
+
+ 
+
+  protected void NuevoProducto()
+    {
+
+	setLayout(new GridLayout(9,2));
 	campo1 = new JLabel ("Introduce Marca:");
 	add(campo1);
 	
@@ -65,6 +147,13 @@ public class ProductoGui extends JFrame implements ActionListener{
 	campoTexto7 = new JTextField();
 	add(campoTexto7);
 
+
+	campo8 = new JLabel ("Introduce Identificador:");
+	add(campo8);
+	
+	campoTexto8 = new JTextField();
+	add(campoTexto8);
+
 	Boton1 = new JButton("Aceptar");
 	add(Boton1);
 	Boton1.addActionListener(this);
@@ -90,6 +179,7 @@ public class ProductoGui extends JFrame implements ActionListener{
 	Cadena = Cadena + "," +campoTexto5.getText();
 	Cadena = Cadena + "," +campoTexto6.getText();
 	Cadena = Cadena + "," +campoTexto7.getText();
+	Cadena = Cadena + "," +campoTexto8.getText();
 	setVisible(false);
 	dispose();
 	return Cadena;
@@ -113,7 +203,7 @@ public class ProductoGui extends JFrame implements ActionListener{
     ArrayProducto = ProductoObjeto.split(",");
       System.out.println("Formato: " + ProductoObjeto);
     try{
-      Objeto = new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]));}
+      Objeto = new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]),ArrayProducto[7]);}
     catch(NumberFormatException ex){
       System.out.println("Error al leer numero en cadenas");
     }
@@ -124,7 +214,7 @@ public class ProductoGui extends JFrame implements ActionListener{
 
 	  
 	  Archivos p = new Archivos("Productos");
-	  p.EscribirFinal(ArrayProducto[0] + "," + ArrayProducto[1] + "," +ArrayProducto[2] + "," + ArrayProducto[3] + "," + ArrayProducto[4] + "," + ArrayProducto[5] + "," + ArrayProducto[6]);}} 
+	  p.EscribirFinal(ArrayProducto[0] + "," + ArrayProducto[1] + "," +ArrayProducto[2] + "," + ArrayProducto[3] + "," + ArrayProducto[4] + "," + ArrayProducto[5] + "," + ArrayProducto[6] + "," + ArrayProducto[7]);}} 
 	catch(IOException e){
 	  System.out.println("No se puedo escribir a producto");
 	}catch(NullPointerException ne){
@@ -144,6 +234,7 @@ public class ProductoGui extends JFrame implements ActionListener{
 	String cadena5= campoTexto5.getText();
 	String cadena6= campoTexto6.getText();
 	String cadena7= campoTexto7.getText();
+	String cadena8= campoTexto8.getText();
        	       
 	if ("Aceptar".equals(cmd)){
 	    System.out.println("Boton Aceptar presionado");
@@ -151,7 +242,7 @@ public class ProductoGui extends JFrame implements ActionListener{
 	    if(( cadena1.length() > 3 ) && (cadena2.length() >  3) &&
 	       (cadena3.length() >  3) && (cadena4.length() >  3) &&
 	       (cadena5.length() >  3) && (cadena6.length() >= 1)  &&
-	       (cadena7.length() >= 1)){
+	       (cadena7.length() >= 1) && (cadena8.length() > 4)){
 		
 		ProductoObjeto = Aceptar();
 		System.out.println("Campos completos");
@@ -161,7 +252,8 @@ public class ProductoGui extends JFrame implements ActionListener{
 				   + "4: " + campoTexto4.getText()
 				   + "5: " + campoTexto5.getText()
 				   + "6: " + campoTexto6.getText()
-				   + "7: " + campoTexto7.getText());
+				   + "7: " + campoTexto7.getText()
+				   + "8: " + campoTexto8.getText());
 		EscribirArchivolista();
 
 	    }
@@ -173,10 +265,11 @@ public class ProductoGui extends JFrame implements ActionListener{
 				    + "4: " + campoTexto4.getText()
 				    + "5: " + campoTexto5.getText()
 				    + "6: " + campoTexto6.getText()
-				    + "7: " + campoTexto7.getText());
+				    + "7: " + campoTexto7.getText()
+				    + "8: " + campoTexto8.getText());
 		
 		System.out.println("Campos incompletos");
-		JOptionPane.showMessageDialog(null,"Todos los campos deben estar llenos");
+		JOptionPane.showMessageDialog(null,"Todos los campos deben estar llenos \n o ser mayores a 5 digitos exepsto los numericos");
 			   
 	    }
 	}else

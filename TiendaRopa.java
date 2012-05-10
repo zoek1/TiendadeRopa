@@ -106,12 +106,12 @@ class TiendaRopa extends JFrame implements ActionListener{
   public void actionPerformed(ActionEvent e){
     String cmd = e.getActionCommand();
     if(MenuProducto[0].equals(cmd)){
-      ProductoGui p = new ProductoGui();
-      p.NuevoProducto();
+      listadeproductos.NuevoProducto();
     }else if(MenuProducto[1].equals(cmd)){
 	
       }else if(MenuProducto[2].equals(cmd)){
-	  
+
+      listadeproductos.BusquedadeProductos();
 	}else if(MenuClientes[0].equals(cmd)){
 	  
     }else if(MenuClientes[1].equals(cmd)){

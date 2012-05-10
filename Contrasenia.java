@@ -2,13 +2,18 @@ import java.io.*;
 
 class Contrasenia {
   private Archivos Archivokey;
-
+  private int NumContraseñas;
   public Contrasenia(String CambioArchivo){
     Archivokey = new Archivos(CambioArchivo);
+    NumContraseñas = 0;
   }
 
   public Contrasenia(File Archivo){
     Archivokey = new Archivos(Archivo);
+  }
+
+   public Contrasenia(Archivos Archivo){
+    Archivokey = Archivo;
   }
   
   protected String Newhashing(String password){
@@ -16,41 +21,61 @@ class Contrasenia {
     return hash;
   }
 
-  protected void Agregarpassword(String Hashing){
-    try{
+  protected boolean Agregarpassword(String Hashing){
+    if(Hashing.length() > 5){
+      try{
+      if(VerificarPassword(Hashing)==false){
       String hash = Newhashing(Hashing);
       Archivokey.EscribirFinal(hash);
+      NumContraseñas +=1;
+      return true;
+      }
     }catch(IOException e){
       System.out.println("No se puedo escribir Archivo Key");  
     }
+    }
+    return false;
   }
 
-  protected void Agregarpassword(Hashingmd5 Hashing){
-    try{
-      Archivokey.EscribirFinal(Hashing.getHashing());
+  protected boolean Agregarpassword(Hashingmd5 Hashing){
+    if (Hashing.getHashing() != null){
+      try{
+      if (VerificarPassword(Hashing) == false){
+	Archivokey.EscribirFinal(Hashing.getHashing());
+	NumContraseñas +=1;
+	return true;
+      }
     }catch(IOException e){
       System.out.println("No se puedo escribir Archivo Key");  
     }
+ }   return false;
   }
 
   protected boolean Eliminarpassword(String Hashing){
     Hashing = Newhashing(Hashing);
     boolean flag = false;
+    if(NumContraseñas > 1){
     try{
       flag = Archivokey.EliminarLinea(Hashing);
-
+      NumContraseñas -= 1;
     }catch(IOException e){
       System.out.println("No se pudo borrar Coincidencia en Key");
+    }}else{
+      System.out.println("Solo existe una contraseña no se puede eliminar");
     }
     return flag;
   }
   
   protected boolean Eliminarpassword(Hashingmd5 Hashing){
     boolean flag = false;
+        if(NumContraseñas > 1){
     try{
       flag = Archivokey.EliminarLinea(Hashing.getHashing());
     }catch(IOException e){
       System.out.println("No se pudo borrar Coincidencia en Key");
+    }
+	}else{
+      System.out.println("Solo existe una contraseña no se puede eliminar");
     }
     return flag;
   }
@@ -64,7 +89,7 @@ class Contrasenia {
 	if(Cmp.equals(Hashing))
 	  return true;
     }catch(IOException e){
-      System.out.println("No se puso hacer comparacion key");
+      System.out.println("No se pudo hacer comparacion key");
     }
     return false;
   }
@@ -98,4 +123,8 @@ class Contrasenia {
 	return flag;
   }
   
+  protected int getNumContraseñas(){
+    return NumContraseñas;
+  }
+
 }

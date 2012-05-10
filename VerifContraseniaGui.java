@@ -57,13 +57,13 @@ class VerifContraseniaGui extends JFrame implements ActionListener{
 	public void windowClosing(WindowEvent e){
 	  setVisible(false);
 	  dispose();
-	  System.exit(0); } })); 
+      } })); 
 
     // Mostrar Pantalla.
     // setSize(350,100);
     pack();
-    setVisible(true);
-	
+      setVisible(true);
+
   }
 
   protected JComponent createButtonPanel(){

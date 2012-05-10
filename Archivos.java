@@ -31,6 +31,9 @@ class Archivos {
 	try{	
 	  NombreArchivo = N_archivo;
 	  
+	    if(!NombreArchivo.exists())
+		NombreArchivo.createNewFile();
+	
 	    if(NombreArchivo.canRead()){
 		ArchivoLectura = new BufferedReader(new FileReader(NombreArchivo));
 	    }else{

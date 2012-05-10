@@ -14,9 +14,9 @@ private File Existe;
 	    {
 		JOptionPane.showMessageDialog(null,"Sistema nuevo");
 
-		nueva = new ContraseniaGui(new File("Keyhash"));
+		nueva = new ContraseniaGui("Keyhash");
 		nueva.NuevaContrasenia();
-		new TiendaRopa();
+		new login();
 	    }
     }
 

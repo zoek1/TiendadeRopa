@@ -22,6 +22,7 @@ class Hashingmd5{
   }
   
   public  static String ObtenerHash(String stringToHash){
+    if(stringToHash.length()>5) {
     try {
       MessageDigest md5 = MessageDigest.getInstance("MD5");
       byte[] bytes = md5.digest(stringToHash.getBytes());
@@ -39,8 +40,13 @@ class Hashingmd5{
     }catch (NoSuchAlgorithmException e) {
       // Manejo de Excepcion
       System.out.println("Excepción: No se pudo obtener la suma de verificación");
-      return null;
+  return null;
     }
+    }else{
+      System.out.println("Se necesitan 5 caracteres como minimo para crear la suma");
+      System.out.println("LA cedena devuelsa sera nula");
+    }
+    return null;
   }
 }
 

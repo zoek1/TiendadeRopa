@@ -50,6 +50,16 @@ public class ListaLigadaProducto{
     }
 
 
+      public Producto Buscar(Producto p){
+      actual = cabecera;
+      while(actual != null){
+	if(actual == p)
+	  break;
+	actual = actual.Siguiente;
+      }
+      return actual;
+    }
+  
       public Producto BuscarAnterior(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
 	Producto actual;
       actual = cabecera;
@@ -105,7 +115,7 @@ public class ListaLigadaProducto{
 
     }
 
-    protected void LeerArchivoProduto(){
+    protected void LeerArchivoProducto(){
 	File producto = new File("Productos");
 	Archivos FileProducto = new Archivos("Productos"); 
 	String LineaProducto;

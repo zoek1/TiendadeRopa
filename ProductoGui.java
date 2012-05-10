@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class ProductoGui extends JFrame implements ActionListener{
     private JTextField campoTexto1, campoTexto2, campoTexto3, campoTexto4, campoTexto5, campoTexto6, campoTexto7;
@@ -14,10 +15,13 @@ public class ProductoGui extends JFrame implements ActionListener{
     public ProductoGui(){
 	ListaProducto = new ListaLigadaProducto();
     }
-
+  
+  protected void setListaProducto(ListaLigadaProducto p){
+    ListaProducto = p;
+  }
     protected void NuevoProducto()
     {
-	String [] ArrayProducto;
+
 	setLayout(new GridLayout(8,2));
 	campo1 = new JLabel ("Introduce Marca:");
 	add(campo1);
@@ -71,17 +75,15 @@ public class ProductoGui extends JFrame implements ActionListener{
 
 	setSize(400,300);
 	setVisible(true);
-	ArrayProducto = ProductoObjeto.split(",");
 	
-	Objeto = new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]));
 
-	ListaProducto.InsertarProducto(Objeto);
     }
 
     private String Aceptar(){
 	String Cadena;
         Cadena = "";
-	Cadena = Cadena + "," +campoTexto1.getText();
+	// Anterior bug
+	Cadena = campoTexto1.getText();
 	Cadena = Cadena + "," +campoTexto2.getText();
 	Cadena = Cadena + "," +campoTexto3.getText();
 	Cadena = Cadena + "," +campoTexto4.getText();
@@ -105,6 +107,33 @@ public class ProductoGui extends JFrame implements ActionListener{
     }
 
 
+
+  protected void EscribirArchivolista() {
+	String [] ArrayProducto;
+    ArrayProducto = ProductoObjeto.split(",");
+      System.out.println("Formato: " + ProductoObjeto);
+    try{
+      Objeto = new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]));}
+    catch(NumberFormatException ex){
+      System.out.println("Error al leer numero en cadenas");
+    }
+    try{ 
+	if(ListaProducto.Buscar(Objeto)== null){
+	  ListaProducto.InsertarProducto(Objeto);
+
+
+	  
+	  Archivos p = new Archivos("Productos");
+	  p.EscribirFinal(ArrayProducto[0] + "," + ArrayProducto[1] + "," +ArrayProducto[2] + "," + ArrayProducto[3] + "," + ArrayProducto[4] + "," + ArrayProducto[5] + "," + ArrayProducto[6]);}} 
+	catch(IOException e){
+	  System.out.println("No se puedo escribir a producto");
+	}catch(NullPointerException ne){
+      System.out.println("Error puntero nulo");
+    }
+	}
+	
+  
+
     public void actionPerformed(ActionEvent evento){
 	String cmd = evento.getActionCommand();
 	System.out.println("Campos completos");
@@ -121,8 +150,8 @@ public class ProductoGui extends JFrame implements ActionListener{
 			
 	    if(( cadena1.length() > 3 ) && (cadena2.length() >  3) &&
 	       (cadena3.length() >  3) && (cadena4.length() >  3) &&
-	       (cadena5.length() >  3) && (cadena6.length() > 3)  &&
-	       (cadena7.length() > 3)){
+	       (cadena5.length() >  3) && (cadena6.length() >= 1)  &&
+	       (cadena7.length() >= 1)){
 		
 		ProductoObjeto = Aceptar();
 		System.out.println("Campos completos");
@@ -133,6 +162,8 @@ public class ProductoGui extends JFrame implements ActionListener{
 				   + "5: " + campoTexto5.getText()
 				   + "6: " + campoTexto6.getText()
 				   + "7: " + campoTexto7.getText());
+		EscribirArchivolista();
+
 	    }
 	    else{
 			    
@@ -155,14 +186,11 @@ public class ProductoGui extends JFrame implements ActionListener{
 		ProductoObjeto = Cancelar();
 			    
 	    }
+
+
 		    
 	System.out.println("Manejador de eventos");
     }
     
-    public static void main(String []args){
-	ProductoGui p = new ProductoGui();
-	p.NuevoProducto();
-	System.out.println(p.getCadena());
-    }
     
 }

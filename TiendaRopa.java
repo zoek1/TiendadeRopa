@@ -7,24 +7,45 @@ class TiendaRopa extends JFrame implements ActionListener{
   private JMenuBar MenuContenedor;
   private JMenu Productos;
   private JMenu Administración;
+  private JButton Comprar;
+  private JButton Cancelar;
+  private JButton Agregar;
   private ImageIcon icono;
   private ImageIcon icono2;
   private ProductoGui listadeproductos;
   private final String NombreEmpresa = "Tienda de Ropa -  Axel Frog";
+  private JLabel etiqueta;
+  private JTextField identificador;
+  private JTextArea lista;
+  private JPanel panel1,panel2,panel3;
 
+  
+  private ListaLigadaProducto lp;
+  private Recibo vendidos;
+  private Producto pro;
+  
   private static final String [] Menus = {"Productos","Clientes","Administración","Empleado"};
   private static final String [] MenuProducto = {"Agregar Producto","Eliminar Productos","Consultar producto"};
 
     private static final String [] MenuAdministración = {"Agregar Contraseña","Eliminar Contraseña","Cambiar Constraseña"};  
 
+
+  
   public TiendaRopa(){
     setTitle(NombreEmpresa);
-    ListaLigadaProducto lp = new ListaLigadaProducto();
+    lp = new ListaLigadaProducto();
+    setLayout(new GridLayout(0,2));
     lp.LeerArchivoProducto();
     listadeproductos = new ProductoGui();
     listadeproductos.setListaProducto(lp);
-    
-    icono = new ImageIcon("Emblemas/Faenza-rana.png");
+
+    vendidos = new Recibo();
+    panel1 = new JPanel();
+    panel2 = new JPanel();
+    panel3 = new JPanel();
+
+     icono = new ImageIcon("Emblemas/Faenza-rana.png");
+
     icono2 = new ImageIcon("Emblemas/rana.png");
 
     // Menus
@@ -61,7 +82,14 @@ class TiendaRopa extends JFrame implements ActionListener{
     MenuContenedor.add(Administración);
     //    add(MenuContenedor);
     setJMenuBar(MenuContenedor);
-    
+
+
+    Comprar = new JButton("Comprar");
+    Cancelar = new JButton("Cancelar");
+    Agregar = new JButton("Agregar a la lista");
+    Comprar.addActionListener(this);
+    Cancelar.addActionListener(this);
+    Agregar.addActionListener(this);
     this.setIconImage(icono.getImage());
     JLabel Ranita = new JLabel(icono2);
     add(Ranita);
@@ -71,10 +99,47 @@ class TiendaRopa extends JFrame implements ActionListener{
 	  setVisible(false);
 	  dispose();
 	  System.exit(0); } }));
-      pack();
+
+    etiqueta = new JLabel("Introduce el id del produco");
+    panel1.add(etiqueta);
+    identificador = new JTextField("Introduce el codigo aquí");
+    identificador.addActionListener(this);
+    panel1.add(identificador);
+    lista = new JTextArea("");
+    panel1.add(Agregar);
+    // panel1.add(lista);
+    panel2.add(Comprar);
+    panel2.add(Cancelar);
+
+    panel3.add(panel1);
+    panel3.add(panel2);
+    panel3.add(lista);
+    
+
+    add(panel3);
+    pack();
       setVisible(true);
   }
 
+  public void WindowVenta(){
+    JFrame nuevo = new JFrame("Recibo");
+    nuevo.setLayout(new GridLayout(0,1));
+    String text = lista.getText();
+    String [] ArrayString = text.split("\n");
+    JLabel name =new  JLabel("Tienda de Ropa - Axel Frog");
+    JLabel direccion =new JLabel(vendidos.get_Direccion_Tienda());
+    JLabel hora = new  JLabel(vendidos.get_Hora("%A%M%h%m%s"));
+    JTextArea productos = new JTextArea(text);
+    JLabel Gracias = new  JLabel("Gracias por su visita vuelva pronto");
+    nuevo.add(name);
+    nuevo.add(direccion);
+    nuevo.add(hora);
+    nuevo.add(productos);
+    nuevo.setVisible(true);
+    nuevo.add(Gracias);
+    nuevo.pack();
+  }
+  
   public void actionPerformed(ActionEvent e){
     String cmd = e.getActionCommand();
     if(MenuProducto[0].equals(cmd)){
@@ -94,6 +159,27 @@ class TiendaRopa extends JFrame implements ActionListener{
     }else if(MenuAdministración[2].equals(cmd)){
       ContraseniaGui p  = new ContraseniaGui("Keyhash");
       p.CambiarContrasenia();      
+    }else if("Agregar a la lista".equals(cmd)){
+      String tmp = identificador.getText();
+      if (tmp!= null && tmp.length()>=4){
+       pro = lp.Buscar(tmp);
+       if(pro != null){
+       vendidos.Agregar_Producto(pro);
+       System.out.println("Producto Agregado: " + pro.get_Marca() + pro.get_Talla() + pro.get_Modelo() + pro.get_Color() + pro.get_TipoTela() + pro.get_Precio() + pro.get_Descuento() + pro.getid());
+       lista.append(pro.get_Marca() + " - " + pro.get_Modelo() + "    " + pro.get_Precio() + "-" + pro.get_Descuento() + "\n");
+       }else{
+	 JOptionPane.showMessageDialog(null,"Identifacdor invalido");
+       }
+      }
+    }else if("Cancelar".equals(cmd)){
+      vendidos = new Recibo();
+      lista = new JTextArea("");
+      identificador = new JTextField();
+    }else if("Comprar".equals(cmd)){
+      WindowVenta();
+      vendidos = new Recibo();
+      lista = new JTextArea("");
+      identificador = new JTextField();
     }
   }
   

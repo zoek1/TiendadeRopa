@@ -11,11 +11,15 @@ public abstract class Venta{
 	Hora = " ";
 	Direccion_Tienda = " ";
     }
-    
-    public String get_Hora(){
-	Hora = tiempo.getTiempo();
-	return Hora;	
-    }
+  
+  protected void EliminarProducto(Producto pro){
+    Productos.EliminarProducto(pro.get_Marca(),pro.get_Talla(),pro.get_Modelo(),pro.get_Color(),pro.get_TipoTela(),pro.get_Precio(),pro.get_Descuento(),pro.getid());
+  }
+  
+  public  String get_Hora(String formato){
+    return tiempo.getTiempo(formato);
+  }
+  
     
     public String get_Direccion_Tienda(){
 	return Direccion_Tienda;

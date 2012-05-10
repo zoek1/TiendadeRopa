@@ -1,4 +1,4 @@
-ALL =Archivos.class CambiarContraseniaGui.class ListaLigadaProducto.class Producto.class Reloj.class Hashingmd5.class TiendaRopa.class Contrasenia.class VerifContraseniaGui.class ContraseniaGui.class Main.class ContraseniaGui.class login.class NuevaContraseniaGui.class ProductoGui.class
+ALL =Archivos.class CambiarContraseniaGui.class ListaLigadaProducto.class Producto.class Reloj.class Hashingmd5.class TiendaRopa.class Contrasenia.class VerifContraseniaGui.class ContraseniaGui.class Main.class ContraseniaGui.class login.class NuevaContraseniaGui.class ProductoGui.class Venta.class
 cc =javac -Xlint
 ccj =jar cmf
 
@@ -52,6 +52,9 @@ NuevaContraseniaGui.class: NuevaContraseniaGui.java
 
 ProductoGui.class: ProductoGui.java
 	$(cc) ProductoGui.java
+
+Venta.class: Venta.java
+	$(cc) Venta.java
 
 .PHONY: clean
 clean:

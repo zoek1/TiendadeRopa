@@ -7,7 +7,7 @@ import java.io.*;
 
 class CambiarContraseniaGui implements ActionListener{
   private static String fallo = "Contraseña Incorrecta";
-  private static final String Ok = "Cambiar Contraseña";
+  private static final String Ok = "Aceptar";
   private static final String Cancelar = "Cancelar";
   
   private String NameArchivo;
@@ -91,8 +91,8 @@ private  JLabel label;
       
       String Entrada;
       Entrada = Contrasena.getText();
-      if(temporal.VerificarPassword(tmp)== true){
-      if((temporal.VerificarPassword(Entrada) != true)){
+      if(temporal.VerificarPassword(tmp)== true) {
+      if((temporal.VerificarPassword(Entrada) != true)) {
        
 	if (Entrada.length() > 5) {
 	Flag = true;
@@ -127,8 +127,6 @@ private  JLabel label;
       {
 	System.out.println("Error: Ocurrio un error al cerrar archivo");
       }
-
- 
   }
 
  }

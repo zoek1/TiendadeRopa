@@ -9,7 +9,7 @@ public abstract class Venta{
 	tiempo = new Reloj();
 	Productos = new ListaLigadaProducto();
 	Hora = " ";
-	Direccion_Tienda = " ";
+	Direccion_Tienda = "4 poniente #2334 ";
     }
   
   protected void EliminarProducto(Producto pro){
@@ -24,10 +24,6 @@ public abstract class Venta{
     public String get_Direccion_Tienda(){
 	return Direccion_Tienda;
     }
-
-    public ListaLigadaProducto Detalle_Producto(){
-	return Productos;
-    }
        
     protected void set_Direccion_Tienda(String DT){
 	this.Direccion_Tienda = DT;
@@ -36,6 +32,7 @@ public abstract class Venta{
     public void Agregar_Producto(Producto p){
 	Productos.InsertarProducto(p);
     }
+  
     public abstract void Suma_Total();
  
 	

@@ -9,7 +9,7 @@ class VerifContraseniaGui extends JFrame implements ActionListener{
   private static String fallo = "Contraseña Incorrecta";
   private static String Ok = "Ok";
   private static String Cancelar = "Cancelar";
-    
+   
   private JLabel label;
   private JPasswordField Contrasenia;
   private boolean flag;

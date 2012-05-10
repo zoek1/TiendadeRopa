@@ -34,7 +34,7 @@ class TiendaRopa extends JFrame implements ActionListener{
   public TiendaRopa(){
     setTitle(NombreEmpresa);
     lp = new ListaLigadaProducto();
-    setLayout(new GridLayout(0,2));
+    setLayout(new GridLayout(2,0));
     lp.LeerArchivoProducto();
     listadeproductos = new ProductoGui();
     listadeproductos.setListaProducto(lp);
@@ -130,13 +130,19 @@ class TiendaRopa extends JFrame implements ActionListener{
     JLabel direccion =new JLabel(vendidos.get_Direccion_Tienda());
     JLabel hora = new  JLabel(vendidos.get_Hora("%A%M%h%m%s"));
     JTextArea productos = new JTextArea(text);
+    String totl = Float.toString(vendidos.get_Total());
+    JLabel total = new  JLabel("Total: " + totl);
     JLabel Gracias = new  JLabel("Gracias por su visita vuelva pronto");
+    
+    JLabel img = new JLabel(icono);
     nuevo.add(name);
     nuevo.add(direccion);
     nuevo.add(hora);
     nuevo.add(productos);
     nuevo.setVisible(true);
+    nuevo.add(total);
     nuevo.add(Gracias);
+    nuevo.add(img);
     nuevo.pack();
   }
   
@@ -168,18 +174,21 @@ class TiendaRopa extends JFrame implements ActionListener{
        System.out.println("Producto Agregado: " + pro.get_Marca() + pro.get_Talla() + pro.get_Modelo() + pro.get_Color() + pro.get_TipoTela() + pro.get_Precio() + pro.get_Descuento() + pro.getid());
        lista.append(pro.get_Marca() + " - " + pro.get_Modelo() + "    " + pro.get_Precio() + "-" + pro.get_Descuento() + "\n");
        }else{
-	 JOptionPane.showMessageDialog(null,"Identifacdor invalido");
+	 JOptionPane.showMessageDialog(null,"Identificador invalido");
        }
       }
     }else if("Cancelar".equals(cmd)){
       vendidos = new Recibo();
       lista = new JTextArea("");
+      lista.setText("");
       identificador = new JTextField();
+           identificador.setText("");
     }else if("Comprar".equals(cmd)){
       WindowVenta();
       vendidos = new Recibo();
       lista = new JTextArea("");
       identificador = new JTextField();
+      identificador.setText("");
     }
   }
   

@@ -1,47 +1,38 @@
-
-public class Venta{
-    protected String TipoRecibo;
-    protected float Total;
-    protected float Subtotal;
-    protected float Impuestos;
-
-    public Venta(String TipoRecibo, float Total, float Subtotal, float Impuestos){
-	this.TipoRecibo = TipoRecibo;	this.Total = Total;
-	this.Subtotal = Subtotal;
-	this.Impuestos = Impuestos;
-    }
-
-    public String get_TipoRecibo(){
-	return TipoRecibo;
-    }
-
-    public float get_Total(){
-	return Total;
-    }
-
-    public float get_Subtotal(){
-	return Subtotal;
-    }
-
-    public float get_Impuestos(){
-	return Impuestos;
-    }
-
-    public void set_TipoRecibo(String TipoRecibo){
-	this.TipoRecibo = TipoRecibo;
-    }
-
-    public void set_Total(float Total){
-	this.Total =  Total;
+public abstract class Venta{
+    protected ListaLigadaProducto Productos;
+    protected Producto temp;
+    protected Reloj tiempo;    
+    protected String Hora;
+    protected String Direccion_Tienda;
+    
+    public Venta(){
+	tiempo = new Reloj();
+	Productos = new ListaLigadaProducto();
+	Hora = " ";
+	Direccion_Tienda = " ";
     }
     
-    public void set_Subtotal(float Subtotal){
-	this.Subtotal =  Subtotal;
+    public String get_Hora(){
+	Hora = tiempo.getTiempo();
+	return Hora;	
+    }
+    
+    public String get_Direccion_Tienda(){
+	return Direccion_Tienda;
     }
 
-    public void set_Impuestos(float Impuestos){
-	this.Impuestos =  Impuestos;
-    }    
-
+    public ListaLigadaProducto Detalle_Producto(){
+	return Productos;
+    }
+       
+    protected void set_Direccion_Tienda(String DT){
+	this.Direccion_Tienda = DT;
+    }
+ 
+    public void Agregar_Producto(Producto p){
+	Productos.InsertarProducto(p);
+    }
+    public abstract void Suma_Total();
+ 
 	
 }

@@ -1,5 +1,5 @@
 Manifest-Version: 0.1-testing
-Main-Class: TiendaRopa
+Main-Class: Main
 Specification-Title: Proyecto Tienda de ropa
 Specification-Version: 0.1-testing
 Specification-Vendor: https://github.com/zoek1/TiendadeRopa

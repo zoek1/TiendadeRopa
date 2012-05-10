@@ -77,7 +77,7 @@ private  JLabel label;
     p.add(OkButton);
     p.add(CancelarButton);
     p.setSize(50,30);
-
+    
     return p;
   }
 

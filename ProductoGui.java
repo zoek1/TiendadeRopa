@@ -99,6 +99,25 @@ public class ProductoGui extends JFrame implements ActionListener{
 
     }
 
+
+  protected void EliminarProducto()
+    {
+      String Eliminar;
+
+      Eliminar = JOptionPane.showInputDialog(null,"Introduce el identificador\n del producto a eliminar");
+
+      if (Eliminar!=null && Eliminar.length()>=4){
+	Producto pro = BuscarporIdentificador(Eliminar);
+	if(pro!=null){
+	  ListaProducto.EliminarProducto(pro.get_Marca(),pro.get_Talla(),pro.get_Modelo(),pro.get_Color(),pro.get_TipoTela(),pro.get_Precio(),pro.get_Descuento(),pro.getid());
+	  ListaProducto.EscribirListaArchivos();
+	}else{
+	  JOptionPane.showMessageDialog(null,"Identificador no valido");
+	}
+      }else{
+	JOptionPane.showMessageDialog(null,"El id debe contener al menos 4 coracteres");
+      }
+    }
  
 
   protected void NuevoProducto()
@@ -269,11 +288,14 @@ public class ProductoGui extends JFrame implements ActionListener{
 				    + "8: " + campoTexto8.getText());
 		
 		System.out.println("Campos incompletos");
-		JOptionPane.showMessageDialog(null,"Todos los campos deben estar llenos \n o ser mayores a 5 digitos exepsto los numericos");
+		JOptionPane.showMessageDialog(null,"Todos los campos deben \n  ser mayores a 4 digitos execepto los numericos");
 			   
 	    }
-	}else
-	    {
+	}else if("Cancelar".equals(cmd)){
+
+	  
+	}
+	else{
 			    
 		System.out.println("Boton Cancelar presionado : " + cmd);
 		ProductoObjeto = Cancelar();

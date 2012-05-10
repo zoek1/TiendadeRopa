@@ -7,7 +7,7 @@ private File Existe;
     public Main(){
 	Existe = new File("Keyhash");
 
-	if (Existe.exists() == true){
+	if (Existe.exists() == true && Existe.length()>10){
 	    new login();
 	}
 	else

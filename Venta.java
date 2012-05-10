@@ -33,7 +33,7 @@ public abstract class Venta{
 	Productos.InsertarProducto(p);
     }
   
-    public abstract void Suma_Total();
+    public abstract float Suma_Total();
  
 	
 }

@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class ListaLigadaProducto{
     protected Producto cabecera;
     protected Producto actual;
@@ -5,6 +7,10 @@ public class ListaLigadaProducto{
     public ListaLigadaProducto(){
 	cabecera = null;
 	actual = null;
+    }
+
+    public Producto get_cabecera(){
+        return cabecera;
     }
     
     public void InsertarProducto(String Marca, String Talla, String Modelo, String Color, String TipoTela, float Precio, int Descuento){
@@ -66,5 +72,57 @@ public class ListaLigadaProducto{
   }
 
   
+    public void EscribirListaArchivos(){
+	Producto tmp = cabecera;
+	String producto;
+	Archivos FileProduto = new Archivos("Productos");
+	boolean flag = false;
+	try{
+	while(tmp != null)
+	    {
+		producto = tmp.get_Marca() + ",";
+		producto = producto + tmp.get_Talla() + ",";
+		producto = producto + tmp.get_Modelo() + ",";
+		producto = producto + tmp.get_Color() + ",";
+		producto = producto + tmp.get_TipoTela() + ",";
+		producto = producto + tmp.get_Precio() + ",";
+		producto = producto + tmp.get_Precio() + ",";
+		producto = producto + tmp.get_Descuento() + ",";
+		
+		    if(flag==false){
+		    FileProduto.SobreEscribir(producto);
+		    flag = true;
+		    }else{
+			FileProduto.EscribirFinal(producto);
+			}
+	    }
+
+	FileProduto.Cerrar();
+	}catch(IOException e){
+		    System.out.println("No se pudo escribir Archivos de producto");
+		}
+	    
+
+    }
+
+    protected void LeerArchivoProduto(){
+	File producto = new File("Productos");
+	Archivos FileProducto = new Archivos("Productos"); 
+	String LineaProducto;
+	String [] ArrayProducto;
+	if(producto.exists()){
+	    try{
+		while((LineaProducto = FileProducto.LeerLinea()) != null) {
+		    ArrayProducto = LineaProducto.split(",");
+		    InsertarProducto(new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6])));
+	    }
+	    FileProducto.Cerrar();
+	    }catch(IOException e){
+		System.out.println("No se pudo leer base de datos Productos");	
+	    }   
+
+	}
+	
+    }
 }
     

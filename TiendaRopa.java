@@ -130,7 +130,7 @@ class TiendaRopa extends JFrame implements ActionListener{
     JLabel direccion =new JLabel(vendidos.get_Direccion_Tienda());
     JLabel hora = new  JLabel(vendidos.get_Hora("%A%M%h%m%s"));
     JTextArea productos = new JTextArea(text);
-    String totl = Float.toString(vendidos.get_Total());
+    String totl = Float.toString(vendidos.Suma_Total());
     JLabel total = new  JLabel("Total: " + totl);
     JLabel Gracias = new  JLabel("Gracias por su visita vuelva pronto");
     

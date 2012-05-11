@@ -1,222 +1,319 @@
-import java.awt.*; 
-import java.awt.event.*; 
+import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
 
-public class Empleado extends JFrame{
-	
-	///Labels a ocupar
+public class Empleado extends JFrame implements ActionListener{
+  private JButton Boton1, Boton2;
+  
+  	///Labels a ocupar
 	private JLabel labelSexo, labelNombre, labelEdad, labelDireccion;
 	private JLabel labelTelefono, labelFechaNac;
 	private JLabel labelAntiguedad, labelPuesto, labelSalario, labelHorario;
 	
 	///Cajas de texto
-	private JTextField campoNombre, campoEdad, campoDireccion;
+	private JTextField campoSexo, campoNombre, campoEdad, campoDireccion;
 	private JTextField campoTelefono, campoFechaNac;
 	
-	private JTextField campoPuesto, campoSalario, campoHorario, campoAntiguedad;
-	private JCheckBox Masculino, Femenino;
-	
-	DatEmpleado datos=new DatEmpleado();
-	
-	public Empleado(){
-		
-			super("Formulario de nuevo empleado");
-						
-			//Constructores de las cajas de texto
-			
-			JPanel contenedorLabels = new JPanel();
-			contenedorLabels.setLayout(new GridLayout(0,1));
-			
-			labelNombre= new JLabel("Nombre:");
-			labelDireccion= new JLabel("Direccion:");
-			labelFechaNac= new JLabel("Fecha de nacimiento:");
-			labelEdad= new JLabel("Edad");
-			labelTelefono=new JLabel("Telefono:");
-			
-			labelAntiguedad= new JLabel("Antiguedad:");			
-			labelHorario= new JLabel("Horario:");
-			labelPuesto= new JLabel("Puesto:");
-			labelSalario= new JLabel("Salario:");
-			
-			
-			contenedorLabels.add(labelNombre);
-			contenedorLabels.add(labelDireccion);
-			contenedorLabels.add(labelFechaNac);
-			contenedorLabels.add(labelEdad);
-			contenedorLabels.add(labelTelefono);
-						
-			contenedorLabels.add(labelAntiguedad);
-			contenedorLabels.add(labelHorario);
-			contenedorLabels.add(labelPuesto);
-			contenedorLabels.add(labelSalario);
-			
-		
-		
-			/*
-			Masculino= new JCheckBox("Masculino");
-			contenedorLabels.add(Masculino);
-			
-			Femenino=new JCheckBox("Femenino");
-			contenedorLabels.add(Femenino);
-			*/
-			
-			//Creacion del contenedor para los Campos de Texto
-			
-			JPanel contenedorTexto = new JPanel();
-			contenedorTexto.setLayout(new GridLayout(0,1));
-			
-			campoNombre=new JTextField(40);
-			campoDireccion=new JTextField(50);
-			campoFechaNac=new JTextField(6);
-			campoEdad=new JTextField(2);
-			campoTelefono=new JTextField(15);
-			
-			campoAntiguedad=new JTextField(2);
-			campoHorario=new JTextField(40);
-			campoPuesto=new JTextField(15);
-			campoSalario=new JTextField(7);
-			
-			
-			contenedorTexto.add(campoNombre);
-			contenedorTexto.add(campoDireccion);
-			contenedorTexto.add(campoFechaNac);
-			contenedorTexto.add(campoEdad);
-			contenedorTexto.add(campoTelefono);
-			
-			contenedorTexto.add(campoAntiguedad);
-			contenedorTexto.add(campoHorario);
-			contenedorTexto.add(campoPuesto);
-			contenedorTexto.add(campoSalario);
-			
-			
-			JPanel contentPane = new JPanel();
-			contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-			contentPane.setLayout(new BorderLayout());
-			contentPane.add(contenedorLabels, BorderLayout.CENTER);
-			contentPane.add(contenedorTexto, BorderLayout.EAST);
-
-			setContentPane(contentPane);
-			
-			ManejadorCampoTexto manejador = new ManejadorCampoTexto(); 
-			campoNombre.addActionListener(manejador);
-			campoDireccion.addActionListener(manejador);
-			campoFechaNac.addActionListener(manejador);
-			campoEdad.addActionListener(manejador);
-			campoTelefono.addActionListener(manejador);
-			campoAntiguedad.addActionListener(manejador);
-			campoHorario.addActionListener(manejador);
-			campoPuesto.addActionListener(manejador);
-			campoSalario.addActionListener(manejador);
-			
-			
-		setSize(700, 300);
-		setVisible(true);
-	}
-
-
- class ManejadorCampoTexto implements ActionListener{ 
-      // procesar eventos de campo de texto 
-      public void actionPerformed( ActionEvent evento ) 
-      { 
-         String cadena="";
+	private JTextField campoAntiguedad,campoPuesto, campoSalario, campoHorario;
+    
+    DatEmpleado Objeto;
+    
+    ListaLigadaEmpleado ListaProducto;
+    
+    private String ProductoObjeto;
+    
+    public ProductoGui(){
+	ListaProducto = new ListaLigadaProducto();
+    }
   
-         
-         if ( evento.getSource() == campoNombre )
-            /*datos.set_Nombre*/cadena=evento.getActionCommand();
-         else if ( evento.getSource() == campoAntiguedad ) 
-            datos.set_Antiguedad(Integer.parseInt(evento.getActionCommand()));     
-         else if ( evento.getSource() == campoDireccion ) 
-            datos.set_Direccion(evento.getActionCommand());
-		 else if ( evento.getSource() == campoEdad)
-            datos.set_Edad(Integer.parseInt(evento.getActionCommand()));
-         else if ( evento.getSource() == campoFechaNac ) 
-            datos.set_FechaNac(Integer.parseInt(evento.getActionCommand()));
-         else if ( evento.getSource() == campoHorario ) 
-            datos.set_Horario(evento.getActionCommand());
-         else if ( evento.getSource() == campoPuesto ) 
-            datos.set_Puesto(evento.getActionCommand());
-         else if ( evento.getSource() == campoSalario ) 
-            datos.set_Salario(Integer.parseInt(evento.getActionCommand()));
-         else if ( evento.getSource() == campoTelefono );
-            datos.set_Telefono(Integer.parseInt(evento.getActionCommand()));
-         
-         JOptionPane.showMessageDialog( null, cadena,"Resultados",JOptionPane.CANCEL_OPTION);  
-  
-      } 
-  
-   }// fin del método actionPerformed 
+  protected void setListaProducto(ListaLigadaProducto p){
+    ListaProducto = p;
+  }
 
-public static void main (String args[]) {
-		
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		
-		Empleado nueva = new Empleado();
-		
-		nueva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
+  protected Producto BuscarporIdentificador(String id){
+    return ListaProducto.Buscar(id);
+  }
+
+
+  protected void BusquedadeProductos()
+    {
+
+   JLabel campoTexto1, campoTexto2, campoTexto3, campoTexto4, campoTexto5, campoTexto6, campoTexto7,campoTexto8;
+     JButton Boton1, Boton2;
+   JLabel campo1, campo2, campo3, campo4, campo5, campo6, campo7,campo8;
+   String tmpl = JOptionPane.showInputDialog(null,"introduce el identificadordel producto");
+   if(tmpl.length()>4){
+   Producto p = BuscarporIdentificador(tmpl);
+     
+   if (p==null){
+     JOptionPane.showMessageDialog(null,"identidicador invalido");
+     return; }
+	setLayout(new GridLayout(9,2));
+	campo1 = new JLabel ("Marca:");
+	add(campo1);
+	
+	campoTexto1 = new JLabel(p.get_Marca());
+	add(campoTexto1);
+
+	campo2 = new JLabel ("Talla:");
+	add(campo2);
+	
+	campoTexto2 = new JLabel(p.get_Talla());
+	add(campoTexto2);
+
+	campo3 = new JLabel ("Modelo:");
+	add(campo3);
+	
+	campoTexto3 = new JLabel(p.get_Modelo());
+	add(campoTexto3);
+
+	campo4 = new JLabel ("Color:");
+	add(campo4);
+	
+	campoTexto4 = new JLabel(p.get_Color());
+	add(campoTexto4);
+
+	campo5 = new JLabel ("Tipo de Tela:");
+	add(campo5);
+	
+	campoTexto5 = new JLabel(p.get_TipoTela());
+	add(campoTexto5);
+	
+	campo6 = new JLabel("Precio:");
+	add(campo6);
+
+	String flot = Float.toString(p.get_Precio()); 
+	campoTexto6 = new JLabel(flot);
+	add(campoTexto6);
+
+	campo7 = new JLabel ("Descuento:");
+	add(campo7);
+
+	String tmp = Integer.toString(p.get_Descuento());
+	campoTexto7 = new JLabel(tmp);
+	add(campoTexto7);
+
+
+	campo8 = new JLabel ("Introduce Identificador:");
+	add(campo8);
+	
+	campoTexto8 = new JLabel(p.getid());
+	add(campoTexto8);
+
+	setSize(400,300);
+	setVisible(true);
+   }else{
+     JOptionPane.showMessageDialog(null,"LA longitud minima del identificador\n es de 5 caracteres");
+   }
+
+    }
+
+
+  protected void EliminarProducto()
+    {
+      String Eliminar;
+
+      Eliminar = JOptionPane.showInputDialog(null,"Introduce el identificador\n del producto a eliminar");
+
+      if (Eliminar!=null && Eliminar.length()>=4){
+	Producto pro = BuscarporIdentificador(Eliminar);
+	if(pro!=null){
+	  ListaProducto.EliminarProducto(pro.get_Marca(),pro.get_Talla(),pro.get_Modelo(),pro.get_Color(),pro.get_TipoTela(),pro.get_Precio(),pro.get_Descuento(),pro.getid());
+	  ListaProducto.EscribirListaArchivos();
+	}else{
+	  JOptionPane.showMessageDialog(null,"Identificador no valido");
 	}
+      }else{
+	JOptionPane.showMessageDialog(null,"El id debe contener al menos 4 coracteres");
+      }
+    }
+ 
 
-class DatEmpleado implements Persona{
-		
-	/**Datos para la interfaz Persona**********************************/
-	protected String Nombre;
-	protected String Sexo;
-	protected int Edad;
-	protected String Direccion;
-	protected int Telefono;
-	protected int FechaNac;
-	/******************************************************************/
+  protected void NuevoProducto()
+    {
+
+	setLayout(new GridLayout(9,2));
+	campo1 = new JLabel ("Introduce Marca:");
+	add(campo1);
 	
-	//Datos de la clase Empleado
-	protected int Antiguedad;
-	protected String Puesto;
-	protected float Salario;
-	protected String Horario;
+	campoTexto1 = new JTextField();
+	add(campoTexto1);
+
+	campo2 = new JLabel ("Introduce Talla:");
+	add(campo2);
 	
-	DatEmpleado(){
-		this.Nombre="";
-		this.Sexo="";
-		this.Edad=-1;
-		this.Direccion="";
-		this.Telefono=-1;
-		this.FechaNac=-1;
-		
-		this.Antiguedad=-1;
-		this.Puesto="";
-		this.Salario=-1;
-		this.Horario="";
+	campoTexto2 = new JTextField();
+	add(campoTexto2);
+
+	campo3 = new JLabel ("Introduce Modelo:");
+	add(campo3);
+	
+	campoTexto3 = new JTextField();
+	add(campoTexto3);
+
+	campo4 = new JLabel ("Introduce Color:");
+	add(campo4);
+	
+	campoTexto4 = new JTextField();
+	add(campoTexto4);
+
+	campo5 = new JLabel ("Introduce Tipo de Tela:");
+	add(campo5);
+	
+	campoTexto5 = new JTextField();
+	add(campoTexto5);
+	
+	campo6 = new JLabel ("Introduce Precio:");
+	add(campo6);
+	
+	campoTexto6 = new JTextField();
+	add(campoTexto6);
+
+	campo7 = new JLabel ("Introduce Descuento:");
+	add(campo7);
+	
+	campoTexto7 = new JTextField();
+	add(campoTexto7);
+
+
+	campo8 = new JLabel ("Introduce Identificador:");
+	add(campo8);
+	
+	campoTexto8 = new JTextField();
+	add(campoTexto8);
+
+	Boton1 = new JButton("Aceptar");
+	add(Boton1);
+	Boton1.addActionListener(this);
+
+	Boton2 = new JButton("Cancelar");
+	add(Boton2);
+	Boton2.addActionListener(this);
+
+	setSize(400,300);
+	setVisible(true);
+	
+
+    }
+
+    private String Aceptar(){
+	String Cadena;
+        Cadena = "";
+	// Anterior bug
+	Cadena = campoTexto1.getText();
+	Cadena = Cadena + "," +campoTexto2.getText();
+	Cadena = Cadena + "," +campoTexto3.getText();
+	Cadena = Cadena + "," +campoTexto4.getText();
+	Cadena = Cadena + "," +campoTexto5.getText();
+	Cadena = Cadena + "," +campoTexto6.getText();
+	Cadena = Cadena + "," +campoTexto7.getText();
+	Cadena = Cadena + "," +campoTexto8.getText();
+	setVisible(false);
+	dispose();
+	return Cadena;
+    }
+
+    private String Cancelar(){
+	String Cadena = "";
+	setVisible(false);
+	dispose();
+	return Cadena;
+    }
+
+    public String getCadena(){
+	return ProductoObjeto;
+    }
+
+  protected void EscribirArchivolista() {
+	String [] ArrayProducto;
+    ArrayProducto = ProductoObjeto.split(",");
+      System.out.println("Formato: " + ProductoObjeto);
+    try{
+      Objeto = new Producto(ArrayProducto[0],ArrayProducto[1],ArrayProducto[2],ArrayProducto[3],ArrayProducto[4],Float.valueOf(ArrayProducto[5]),Integer.valueOf(ArrayProducto[6]),ArrayProducto[7]);}
+    catch(NumberFormatException ex){
+      System.out.println("Error al leer numero en cadenas");
+    }
+    try{ 
+	if(ListaProducto.Buscar(Objeto)== null){
+	  ListaProducto.InsertarProducto(Objeto);
+
+
+	  
+	  Archivos p = new Archivos("Productos");
+	  p.EscribirFinal(ArrayProducto[0] + "," + ArrayProducto[1] + "," +ArrayProducto[2] + "," + ArrayProducto[3] + "," + ArrayProducto[4] + "," + ArrayProducto[5] + "," + ArrayProducto[6] + "," + ArrayProducto[7]);}} 
+	catch(IOException e){
+	  System.out.println("No se puedo escribir a producto");
+	}catch(NullPointerException ne){
+      System.out.println("Error puntero nulo");
+    }
 	}
 	
-	/**Funciones heredadas de la interfaz Persona**********************/
-	public String get_Sexo(){return this.Sexo;}
-	public String get_Nombre(){return this.Nombre;}
-	public int get_Edad(){return this.Edad;}
-	public String get_Direccion(){return this.Direccion;}
-	public int get_Telefono(){return this.Telefono;}
-	public int get_FechaNac(){return this.FechaNac;}
-	
-	public void set_Sexo(String sex){this.Sexo=sex;}
-	public void set_Nombre(String nom){this.Nombre=nom;}
-	public void set_Edad(int edad){this.Edad=edad;}
-	public void set_Direccion(String direc){this.Direccion=direc;}
-	public void set_Telefono(int tel){this.Telefono=tel;}
-	public void set_FechaNac(int nac){this.FechaNac=nac;}
-	/******************************************************************/
-	
-	//Funciones de la clase
-	public int get_Antiguedad(){return this.Antiguedad;}
-	public String get_Puesto(){return this.Puesto;}
-	public float get_Salario(){return this.Salario;}
-	public String get_Horario(){return this.Horario;}
+    public void actionPerformed(ActionEvent evento){
+	String cmd = evento.getActionCommand();
+	System.out.println("Campos completos");
+	String cadena1= campoTexto1.getText();
+	String cadena2= campoTexto2.getText();
+	String cadena3= campoTexto3.getText();
+	String cadena4= campoTexto4.getText();
+	String cadena5= campoTexto5.getText();
+	String cadena6= campoTexto6.getText();
+	String cadena7= campoTexto7.getText();
+	String cadena8= campoTexto8.getText();
+       	       
+	if ("Aceptar".equals(cmd)){
+	    System.out.println("Boton Aceptar presionado");
+			
+	    if(( cadena1.length() > 3 ) && (cadena2.length() >  3) &&
+	       (cadena3.length() >  3) && (cadena4.length() >  3) &&
+	       (cadena5.length() >  3) && (cadena6.length() >= 1)  &&
+	       (cadena7.length() >= 1) && (cadena8.length() > 4)){
 		
-	public void set_Antiguedad(int antiguedad){this.Antiguedad=antiguedad;}
-	public void set_Puesto(String puesto){this.Puesto=puesto;}
-	public void set_Salario(float salario){this.Salario=salario;}
-	public void set_Horario(String horario){this.Horario=horario;}
+		ProductoObjeto = Aceptar();
+		System.out.println("Campos completos");
+		System.out.println("1: " + campoTexto1.getText()
+				   + "2: " + campoTexto2.getText()
+				   + "3: " + campoTexto3.getText()
+				   + "4: " + campoTexto4.getText()
+				   + "5: " + campoTexto5.getText()
+				   + "6: " + campoTexto6.getText()
+				   + "7: " + campoTexto7.getText()
+				   + "8: " + campoTexto8.getText());
+		EscribirArchivolista();
 
-}
+	    }
+	    else{
+			    
+		System.out.println("1: " + campoTexto1.getText()
+				    + "2: " + campoTexto2.getText()
+				    + "3: " + campoTexto3.getText()
+				    + "4: " + campoTexto4.getText()
+				    + "5: " + campoTexto5.getText()
+				    + "6: " + campoTexto6.getText()
+				    + "7: " + campoTexto7.getText()
+				    + "8: " + campoTexto8.getText());
+		
+		System.out.println("Campos incompletos");
+		JOptionPane.showMessageDialog(null,"Todos los campos deben \n  ser mayores a 4 digitos execepto los numericos");
+			   
+	    }
+	}else if("Cancelar".equals(cmd)){
 
-	
-}
+	  
+	}
+	else{
+			    
+		System.out.println("Boton Cancelar presionado : " + cmd);
+		ProductoObjeto = Cancelar();
+			    
+	    }
+
+
+		    
+	System.out.println("Manejador de eventos");
+    }
+    
+    
 
 
